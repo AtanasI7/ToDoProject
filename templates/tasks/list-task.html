@@ -1,0 +1,31 @@
+{% extends 'common/base.html' %}
+{% block title %}My tasks{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold">My tasks</h2>
+    <a href="{% url 'task-create' %}" class="btn btn-primary">+ New Task</a>
+</div>
+
+<div class="card shadow-sm">
+    <ul class="list-group list-group-flush">
+        {% for task in task_list %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    {% if task.completed %}
+                        <span class="text-muted"><s>{{ task.title }}</s></span>
+                    {% else %}
+                        <span>{{ task.title }}</span>
+                    {% endif %}
+                </div>
+                <div>
+                    <a href="{% url 'task-details' task.id %}" class="btn btn-sm btn-outline-info me-2">Details</a>
+{#                    <a href="{% url 'task-update' task.id %}" class="btn btn-sm btn-outline-warning">Редакция</a>#}
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-center text-muted">No added tasks.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

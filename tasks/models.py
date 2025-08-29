@@ -45,7 +45,9 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         related_name='tasks'
     )
-    is_approved = models.BooleanField()
+    is_approved = models.BooleanField(
+        default=False
+    )
 
     def __str__(self):
         return self.title

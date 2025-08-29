@@ -7,8 +7,8 @@
         <h1 class="display-5 fw-bold">Hello, {{ user.username }}! 👋</h1>
         <p class="lead text-muted">Are you ready to create tasks?</p>
         <div class="mt-4">
-            <a href="#" class="btn btn-outline-primary btn-lg me-2">Create task</a>
-            <a href="#" class="btn btn-primary btn-lg">My tasks</a>
+            <a href="{% url 'task-create' %}" class="btn btn-outline-primary btn-lg me-2">Create task</a>
+            <a href="{% url 'task-list' %}" class="btn btn-primary btn-lg">My tasks</a>
         </div>
     {% else %}
         <h1 class="display-4 fw-bold">Welcome to ToDo App 🎯</h1>

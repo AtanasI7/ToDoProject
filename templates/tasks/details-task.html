@@ -1,0 +1,15 @@
+{% extends 'common/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Task Details - ToDo App{% endblock %}
+
+{% block content %}
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">{{ task.title }}</h3>
+            <p class="card-text">{{ task.description }}</p>
+        </div>
+    </div>
+
+{% endblock %}

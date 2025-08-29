@@ -23,7 +23,7 @@
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Моите задачи</a>
+                            <a class="nav-link" href="{% url 'task-list' %}">My tasks</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button"
@@ -34,17 +34,17 @@
                                 <li>
                                     <form method="post" action="{% url 'logout' %}" class="d-inline">
                                         {% csrf_token %}
-                                        <button type="submit" class="dropdown-item text-danger">Изход</button>
+                                        <button type="submit" class="dropdown-item text-danger">Log out</button>
                                     </form>
                                 </li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                            <a class="nav-link" href="{% url 'login' %}">Log in</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
                         </li>
                     {% endif %}
                 </ul>

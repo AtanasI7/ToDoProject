@@ -20,7 +20,7 @@
                 </div>
                 <div>
                     <a href="{% url 'task-details' task.id %}" class="btn btn-sm btn-outline-info me-2">Details</a>
-{#                    <a href="{% url 'task-update' task.id %}" class="btn btn-sm btn-outline-warning">Редакция</a>#}
+                    <a href="{% url 'task-edit' task.id %}" class="btn btn-sm btn-outline-warning">Edit</a>
                 </div>
             </li>
         {% empty %}

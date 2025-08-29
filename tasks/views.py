@@ -1,9 +1,11 @@
+from django.forms.models import modelform_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic.edit import FormMixin
 
 from tasks.forms import CommentFormSet, TaskCreateForm, TaskEditForm
-from tasks.models import Task
+from tasks.models import Task, Comment
 
 
 class TaskCreateView(CreateView):
@@ -16,12 +18,50 @@ class TaskCreateView(CreateView):
         form.instance.author_id = self.request.user.pk
         return super().form_valid(form)
 
-class TaskDetailsView(DetailView):
+class TaskEditView(UpdateView):
+    model = Task
+    template_name = 'tasks/edit-task.html'
+    success_url = reverse_lazy('task-details', )
+
+    def get_form_class(self):
+        if self.request.user.is_superuser:
+            return modelform_factory(Task, fields='__all__')
+
+        return modelform_factory(Task, fields=['description', 'status', 'priority'])
+
+class TaskDetailsView(DetailView, FormMixin):
     model = Task
     template_name = 'tasks/details-task.html'
+    form_class = CommentFormSet
 
     def get_queryset(self):
         return Task.objects.filter(author=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            'comment_form_set': self.get_form_class()()
+        })
+        
+        return super().get_context_data(**kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('task-details', kwargs={'pk': self.kwargs.get(self.pk_url_kwarg)})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        comment_form_set = self.get_form_class()(request.POST)
+
+        if comment_form_set.is_valid():
+            for comment_form in comment_form_set:
+                comment: Comment = comment_form.save(commit=False)
+                comment.task = self.object
+                comment.author = request.user
+                comment.save()
+
+            return self.form_valid(comment_form_set)
+
+        return None
+
 class TaskListView(ListView):
     model = Task
     template_name = 'tasks/list-task.html'

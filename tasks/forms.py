@@ -72,6 +72,6 @@ class CommentForm(forms.ModelForm):
             )
         }
 
-CommentFormSet = formset_factory(CommentForm, extra=2)
+CommentFormSet = formset_factory(CommentForm, extra=1)
 
 

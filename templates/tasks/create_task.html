@@ -1,13 +1,13 @@
 {% extends 'common/base.html' %}
 {% load crispy_forms_tags %}
-{% block title %}Новазадача{% endblock %}
+{% block title %}Creation Task{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card shadow-sm">
             <div class="card-header bg-success text-white">
-                <h4 class="mb-0">Създаване на нова задача</h4>
+                <h4 class="mb-0">Create a new task</h4>
             </div>
             <div class="card-body">
                 <form method="post">
@@ -15,7 +15,7 @@
                     {{ form|crispy }}
 
                     <button type="submit" class="btn btn-success w-100 mt-3">
-                        Създай
+                        Create
                     </button>
                 </form>
             </div>

@@ -1,10 +1,10 @@
 from django.forms.models import modelform_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
 
-from tasks.forms import CommentFormSet, TaskCreateForm, TaskEditForm
+from tasks.forms import CommentFormSet, TaskCreateForm, TaskEditForm, TaskDeleteForm
 from tasks.models import Task, Comment
 
 
@@ -68,3 +68,15 @@ class TaskListView(ListView):
 
     def get_queryset(self):
         return Task.objects.filter(author=self.request.user)
+
+class TaskDeleteView(DeleteView):
+    model = Task
+    form_class = TaskDeleteForm
+    success_url = reverse_lazy('task-list')
+    template_name = 'tasks/delete-task.html'
+
+    def get_initial(self):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        task = self.model.objects.get(pk=pk)
+
+        return task.__dict__

@@ -8,7 +8,7 @@
         <h4 class="mb-0">{{ task.title }}</h4>
     </div>
     <div class="card-body">
-        <p><strong>Description:</strong> {{ task.description|default:"(няма описание)" }}</p>
+        <p><strong>Description:</strong> {{ task.description|default:"(no description)" }}</p>
         <p><strong>Status:</strong>
             {% if task.completed %}
                 ✅ Completed
@@ -22,33 +22,36 @@
         <div>
             <a href="{% url 'task-edit' task.pk %}" class="btn btn-warning">Edit</a>
 
-{#            <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger">Delete</a>#}
+            <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger">Delete</a>
         </div>
     </div>
 </div>
 
-
+<!-- Коментари -->
 <div class="card shadow-sm mb-4">
     <div class="card-header bg-light">
-        <h5 class="mb-0">Comments</h5>
+        <h5 class="mb-0">Коментари</h5>
     </div>
     <div class="card-body">
         {% if task.comments.all %}
-            <ul class="list-group list-group-flush">
+            <div class="d-flex flex-column gap-3">
                 {% for comment in task.comments.all %}
-                    <li class="list-group-item">
-                        <p class="mb-1">{{ comment.content }}</p>
-                        <small class="text-muted">от {{ comment.author }} на {{ comment.created_at|date:"d.m.Y" }}</small>
-                    </li>
+                    <div class="p-3 rounded-3 bg-light shadow-sm" style="max-width: 70%; text-align: left;">
+                        <p class="mb-2">{{ comment.content }}</p>
+                        <div class="text-end text-muted small">
+                            {{ comment.author }} · {{ comment.created_at|date:"d.m.Y H:i" }}
+                        </div>
+                    </div>
                 {% empty %}
-                    <li class="list-group-item text-muted text-center">No comments yet.</li>
+                    <p class="text-muted text-center">Все още няма коментари.</p>
                 {% endfor %}
-            </ul>
+            </div>
         {% else %}
-            <p class="text-muted">No comments yet.</p>
+            <p class="text-muted">Все още няма коментари.</p>
         {% endif %}
     </div>
 </div>
+
 
 <div class="card shadow-sm">
     <div class="card-header bg-success text-white">

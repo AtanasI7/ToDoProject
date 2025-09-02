@@ -1,0 +1,14 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <p>
+        {{ todouser.username }}
+    </p>
+    <p>
+        Is superuser - {{ todouser.is_superuser }}
+    </p>
+    <p>
+        Id - {{ todouser.pk }}
+    </p>
+
+{% endblock %}

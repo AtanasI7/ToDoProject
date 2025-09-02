@@ -76,6 +76,11 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.CustomAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 WSGI_APPLICATION = 'ToDoProject.wsgi.application'
 
 
@@ -138,6 +143,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'accounts.ToDoUser'
+AUTH_USER_MODEL = 'accounts.TodoAppUser'
 LOGIN_REDIRECT_URL = reverse_lazy('home-page')
 LOGOUT_REDIRECT_URL = reverse_lazy('home-page')

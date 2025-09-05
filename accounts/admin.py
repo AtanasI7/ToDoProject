@@ -1,11 +1,11 @@
 from django.contrib import admin
-from accounts.forms import ToDoUserCreationForm
+from accounts.forms import ToDoUserBaseForm
 from accounts.models import TodoAppUser
 
 
 @admin.register(TodoAppUser)
 class TodoAppUserAdmin(admin.ModelAdmin):
-    add_form = ToDoUserCreationForm
+    add_form = ToDoUserBaseForm
     list_display = ['username', 'email']
 
     add_fieldsets = (

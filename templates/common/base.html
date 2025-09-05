@@ -40,6 +40,9 @@
                                         <button type="submit" class="dropdown-item text-danger">Log out</button>
                                     </form>
                                 </li>
+                                <li>
+                                    <a href="{% url 'profile-details' request.user.pk %}">Account Details</a>
+                                </li>
                             </ul>
                         </li>
                     {% else %}

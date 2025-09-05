@@ -22,14 +22,14 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 class TaskEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
     template_name = 'tasks/edit-task.html'
-    success_url = reverse_lazy('task-details')
+    # success_url = reverse_lazy('task-details')
 
     def get_success_url(self):
         return reverse_lazy('task-details', kwargs={'pk': self.object.pk})
 
     def test_func(self):
         pk = self.kwargs['pk']
-        task = Task.objects.get(pk=pk)
+        task = self.model.objects.get(pk=pk)
         return self.request.user.pk == task.author.pk
 
     # def get_queryset(self):
@@ -77,7 +77,7 @@ class TaskListView(LoginRequiredMixin, ListView):
     template_name = 'tasks/list-task.html'
 
     def get_queryset(self):
-        return Task.objects.filter(author=self.request.user)
+        return self.model.objects.filter(author=self.request.user)
 
 class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
@@ -87,7 +87,7 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         pk = self.kwargs['pk']
-        task = Task.objects.get(pk=pk)
+        task = self.model.objects.get(pk=pk)
         return self.request.user.pk == task.author.pk
 
     def get_initial(self):

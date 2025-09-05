@@ -38,12 +38,14 @@ class TaskBaseForm(forms.ModelForm):
     def clean_due_date(self):
         due_date = self.cleaned_data.get('due_date')
 
+        if due_date is None:
+            raise ValidationError("Insert a due date!")
+
         if due_date < now():
             raise ValidationError("The due date must not be before today's date!")
 
-        self.instance.due_date = due_date
 
-        return self.instance.due_date
+        return due_date
 
 class TaskCreateForm(TaskBaseForm):
     def __init__(self, *args, **kwargs):

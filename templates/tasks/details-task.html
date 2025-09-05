@@ -19,11 +19,13 @@
     </div>
     <div class="card-footer d-flex justify-content-between">
         <a href="{% url 'task-list' %}" class="btn btn-secondary">Back</a>
-        <div>
-            <a href="{% url 'task-edit' task.pk %}" class="btn btn-warning">Edit</a>
+        {% if request.user.pk == task.author.pk %}
+            <div>
+                <a href="{% url 'task-edit' task.pk %}" class="btn btn-warning">Edit</a>
 
-            <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger">Delete</a>
-        </div>
+                <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger">Delete</a>
+            </div>
+        {% endif %}
     </div>
 </div>
 

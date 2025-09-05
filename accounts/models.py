@@ -36,6 +36,7 @@ class Profile(models.Model):
     user = models.OneToOneField(
         TodoAppUser,
         on_delete=models.CASCADE,
+        primary_key=True
     )
     age = models.IntegerField(
         blank=True,

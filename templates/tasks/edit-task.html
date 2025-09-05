@@ -14,11 +14,9 @@
                     {% csrf_token %}
                     {{ form|crispy }}
 
-                    <a href="{% url 'task-edit' task.pk %}">
-                        <a href="{% url 'task-details' task.id %}" class="btn btn-success w-100 mt-3">
+                        <button class="btn btn-success w-100 mt-3">
                             Edit
-                        </a>
-                    </a>
+                        </button>
                 </form>
             </div>
         </div>
